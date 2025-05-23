@@ -46,9 +46,9 @@ const AdminDashboard = () => {
       alert('Failed to delete user');
     }
   };
-
+ const url = import.meta.env.VITE_API_URL || 'http://localhost:5000'
   const handleChangeRole = async (id, newRole) => {
-    const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+    const res = await fetch(`${url}/api/users/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

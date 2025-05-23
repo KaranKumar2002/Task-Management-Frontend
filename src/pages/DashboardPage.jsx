@@ -16,9 +16,10 @@ const Dashboard = () => {
     setLoading(true);
     setError('');
     const token = localStorage.getItem('token');
+     const url = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
     try {
-      const res = await fetch('http://localhost:5000/api/tasks', {
+      const res = await fetch(`${url}/api/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,12 +42,14 @@ const Dashboard = () => {
   useEffect(() => {
     fetchTasks();
   }, []);
+  
+  
 
   const handleSubmitTask = async (formData, isUpdate = false, taskId = null) => {
     const token = localStorage.getItem('token');
     const url = isUpdate
-      ? `http://localhost:5000/api/tasks/${taskId}?_method=PUT`
-      : 'http://localhost:5000/api/tasks';
+      ? `${url}/api/tasks/${taskId}?_method=PUT`
+      : `${url}/api/tasks`;
 
     const method ='POST';
 
@@ -70,7 +73,7 @@ const Dashboard = () => {
     const token = localStorage.getItem('token');
     if (!window.confirm('Are you sure you want to delete this task?')) return;
 
-    const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+    const res = await fetch(`${url}/api/tasks/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
