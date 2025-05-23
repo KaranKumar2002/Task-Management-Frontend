@@ -47,13 +47,13 @@ const Dashboard = () => {
 
   const handleSubmitTask = async (formData, isUpdate = false, taskId = null) => {
     const token = localStorage.getItem('token');
-    const url = isUpdate
+    const link = isUpdate
       ? `${url}/api/tasks/${taskId}?_method=PUT`
       : `${url}/api/tasks`;
 
     const method ='POST';
 
-    const res = await fetch(url, {
+    const res = await fetch(link, {
       method,
       headers: {
         Authorization: `Bearer ${token}`,

@@ -8,12 +8,13 @@ const AdminDashboard = () => {
   const [error, setError] = useState('');
 
   const token = localStorage.getItem('token');
+   const url = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
   const fetchUsers = async () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/users', {
+      const res = await fetch(`${url}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,7 +34,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
-    const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+    const res = await fetch(`${url}/api/users/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,7 +47,7 @@ const AdminDashboard = () => {
       alert('Failed to delete user');
     }
   };
- const url = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
   const handleChangeRole = async (id, newRole) => {
     const res = await fetch(`${url}/api/users/${id}`, {
       method: 'PUT',
